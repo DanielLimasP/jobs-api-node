@@ -1,0 +1,29 @@
+{
+  "name": "jobs-api",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "cross-env JWT_SECRET=jobsnewloginuser nodemon index.js"
+  },
+  "keywords": [],
+  "author": "Apps Hibridas",
+  "license": "ISC",
+  "dependencies": {
+    "aws-sdk": "^2.618.0",
+    "bcryptjs": "^2.4.3",
+    "body-parser": "^1.19.0",
+    "cloudinary": "^1.20.0",
+    "connect-multiparty": "^2.2.0",
+    "express": "^4.17.1",
+    "jsonwebtoken": "^8.5.1",
+    "meteor-random": "0.0.3",
+    "mongoose": "^5.9.0",
+    "sha256": "^0.2.0"
+  },
+  "devDependencies": {
+    "cross-env": "^7.0.2",
+    "nodemon": "^2.0.2"
+  }
+}
