@@ -1,0 +1,23 @@
+{
+    "displayName": "Daniel Limas",
+    "profile" : {
+        "name": "Daniel",
+        "lastname": "Limas",
+        "email": "amedlimas@gmail.com",
+        "password": "1234",
+        "phone": "6141576649",
+        "birthDate": "12-02-1997",
+        "address": {
+            "street":  "54 0594",
+            "city":  "Chihuahua",
+            "state":  "Chihuahua",
+            "zipCode": "31000" 
+        },
+        "gender": "masculino",
+        "maritalStatus": "soltero",
+        "profileImg": "daniel_profile",
+        "degree":"Ingenieria",
+        "roles": "admin"
+    },
+    "terms": true
+}
