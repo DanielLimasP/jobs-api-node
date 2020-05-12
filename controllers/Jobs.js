@@ -8,15 +8,24 @@ module.exports = {
     uploadJobPhoto
 }
 
+// CLOUDINARY_URL=cloudinary://874717479975763:I2uZYCzyRbb3Iyz3_lNOR2RN-7k@dz6pgtx3t
 const JobsSub = require('../models/Jobs')
 const fs = require('fs')
 const cloudinary = require('cloudinary').v2
 Random = require('meteor-random')
 cloudinary.config({
+    cloud_name:'dz6pgtx3t',
+    api_key: '874717479975763',
+    api_secret: 'I2uZYCzyRbb3Iyz3_lNOR2RN-7k'
+})
+/*
+// Cloudinary config for profe's cloud
+cloudinary.config({
     cloud_name:'ravenegg',
     api_key: '173273979277351',
     api_secret: 'zGjYH6vwUSalJPm2sgSevqUMNaM'
 })
+*/ 
 
 function getAllJobs(req, res){
     JobsSub.find({}, (err, concepts)=>{
@@ -130,21 +139,10 @@ function uploadJobPhoto(req, res){
     cloudinary.uploader.upload(path, { public_id: `jobs/${uniqueFilename}`, tags: `jobs` }, (err, result)=> { 
         if (err) return res.send(err)
         console.log("Cloudinary result", result)
-        // "url": "http://res.cloudinary.com/ravenegg/image/upload/v1585857527/jobs/38Mr7jtkz6HCWn5kk.gif",
-        //Cesar String change
-        /*let routeImg = result.url
-        let arrayRoute = routeImg.split("/")
-        let finalUrl = arrayRoute[6] + "/"  + arrayRoute[7] + "/" + arrayRoute[8]*/
+        // "url": "http://res.cloudinary.com/dz6pgtx3t/image/upload/v1585857527/jobs/38Mr7jtkz6HCWn5kk.gif",
 
-        //Francisco string change
         let urlString = result.url
-        let finalString = urlString.replace("http://res.cloudinary.com/ravenegg/image/upload/", "")
-
-        //Amed String Change
-        /*let routeImg = result.url
-        let stringImg = routeImg.split("http://res.cloudinary.com/ravenegg/image/upload")
-        console.log("string", stringImg)*/
-
+        let finalString = urlString.replace("http://res.cloudinary.com/dz6pgtx3t/image/upload/", "")
 
         //console.log("Final Url", finalUrl)
         //updateDescImages(jobID, result.path)
