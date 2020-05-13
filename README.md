@@ -21,5 +21,5 @@ npm start
 
 # TODO
 
-*Add a view after login to handle Go to Jobs or Go to users
-*From there, add views to add or modify Jobs/Users
+* Add a view after login to handle Go to Jobs or Go to users
+* From there, add views to add or modify Jobs/Users
