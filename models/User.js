@@ -35,7 +35,7 @@ const UserSchema = Schema({
     displayName: { type: String},
     profile : { type: ProfileSchema },
     terms: {type: Boolean, optional: false}
-}, { collection: 'users'})
+}, { collection: 'Users'})
 
 UserSchema.methods.encryptPassword = async (password)=>{
     const salt = await bcrypt.genSalt(10)
