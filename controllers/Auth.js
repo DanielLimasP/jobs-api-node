@@ -3,28 +3,29 @@ module.exports = {
     logOutUser,
     getCurrentUser,
     signUpUser,
-    uploadProfilePhoto,
-    uploadToS3
+    uploadProfilePhoto
 }
 
 let User = require('../models/User')
 const AWS = require('aws-sdk')
 const fs = require('fs')
 //bucket-example-1
-const s3 = new AWS.S3({
+/**
+ * const s3 = new AWS.S3({
     region:"",
     accessKeyId: "",
     secretAccessKey: ""
 })
+ */
 const jwt = require('jsonwebtoken')
 const bcrypt = require('bcryptjs')
 const sha256 = require('sha256')
 const cloudinary = require('cloudinary').v2
 Random = require('meteor-random')
 cloudinary.config({
-    cloud_name:'ravenegg',
-    api_key: '',
-    api_secret: ''
+    cloud_name:'dz6pgtx3t',
+    api_key: '874717479975763',
+    api_secret: 'I2uZYCzyRbb3Iyz3_lNOR2RN-7k'
 })
 
 function logInUser(req, res){
@@ -106,34 +107,4 @@ function uploadProfilePhoto(req, res){
         fs.unlinkSync(path)
         res.status(200).send({message: "upload image success", imageData: result})
     });
-}
-
-function uploadToS3(req,res){
-    const path = req.files.file.path
-    const file = req.files.file
-    let key = ""
-    if(file.type==='image/png'){
-        key = Random.id() + ".png"
-    } else if(file.type==='image/jpg'){
-        key = Random.id() + ".jpg"
-    } else if(file.type==='image/jpeg'){
-        key = Random.id() + ".jpeg"
-    }
-    fs.readFile(path, (err, data)=>{
-        if(err) { throw err }
-        const params = {
-            Body: data,
-            Bucket: "bucket-example-1",
-            ACL: 'public-read',
-            Key: key
-        }
-        // Change the URL, because this one is deprecated
-        const url = "https://bucket-example-1.s3-us-west-2.amazonaws.com/"
-        s3.putObject(params).promise().then((data)=>{
-            fs.unlinkSync(path)
-            res.status(200).send({s3Data: data, url: `${url}${key}`})
-        }).catch(
-            (err)=> res.status(500).send({message: `Error on request ${err}`}
-        ))
-    })
 }

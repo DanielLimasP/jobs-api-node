@@ -10,8 +10,6 @@ let AuthController = require('../controllers/Auth');
 
 router.post('/uploadphoto', AuthController.uploadProfilePhoto)
 
-router.post('/uploads3', AuthController.uploadToS3)
-
 router.post('/register', AuthController.signUpUser)
 
 router.post('/login', AuthController.logInUser)
