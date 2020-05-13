@@ -43,6 +43,7 @@ function logInUser(req, res){
         let token = jwt.sign({email: user.profile.email}, process.env.JWT_SECRET, { expiresIn: 864000}  //expires in 24 hours
         )
         res.status(200).send({auth: true, token: token, name: user.profile.username, email:user.profile.email});
+        res.redirect('jobs/main-page-jobs')
     })
 }
 
@@ -79,10 +80,15 @@ function signUpUser(req, res) {
             password:  req.body.password,
             phone:  req.body.phone,
             birthDate:  req.body.birthDate,
-            address:  req.body.address,
+            address:  {
+                street: "",
+                city: "",
+                state: "",
+                zipcode: "",
+            },
             gender:  req.body.gender,
             maritalStatus:  req.body.maritalStatus,
-            profileImg:  req.body.profileImg,
+            profileImg:  'profile_img.png',
             degree:  req.body.degree,
             roles:  req.body.roles
         }

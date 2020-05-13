@@ -56,6 +56,8 @@ app.use((req, res, next)=>{
 // Routes
 const auth = require('./routes/auth')
 const jobs = require('./routes/jobs')
+
+app.use(require('./routes/index'))
 app.use('/auth', auth)
 app.use('/jobs', jobs)
 
