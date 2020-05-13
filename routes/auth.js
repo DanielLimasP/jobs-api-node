@@ -13,6 +13,9 @@ router.post('/uploadphoto', AuthController.uploadProfilePhoto)
 router.post('/register', AuthController.signUpUser)
 
 router.post('/login', AuthController.logInUser)
+router.get('/signin', (req, res)=>{
+    res.render('users/signin')
+})
 
 router.post('/logout', AuthController.logOutUser)
 

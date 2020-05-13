@@ -20,7 +20,7 @@ app.engine('.hbs', exhbs({
     partialsDir: path.join(app.get('views'), 'partials'),
     extname: '.hbs'
 }))
-app.set('view-engine', '.hbs')
+app.set('view engine', '.hbs')
 
 // Middlewares
 app.use(bodyParser.urlencoded({extended:false}))
