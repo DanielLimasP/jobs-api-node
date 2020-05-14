@@ -93,16 +93,19 @@ router.post('/signin', (req, res)=>{
     const email = req.body.email
     const pass = req.body.password
     let passwordIsValid  = false
-    AdminModel.findOne({'email': email}).then((AdminModel)=>{
-        console.log(AdminModel)
-        if(!AdminModel) return res.status(404).send('No user found')
-        let passwordIsValid = AdminModel.matchPassword(pass)
+    AdminModel.findOne({'email': email}).then((admin)=>{
+        console.log(admin)
+        if(!admin) return res.status(404).send('No user found')
+        let passwordIsValid = admin.matchPassword(pass)
         if(passwordIsValid){
-            let token = jwt.sign({email: AdminModel.email}, process.env.JWT_SECRET, { expiresIn: 864000 })
-            //res.status(200).send({auth: true, token: token, name: AdminModel.name, email:AdminModel.email});
+            let token = jwt.sign({email: admin.email}, process.env.JWT_SECRET, { expiresIn: 864000 })
+            console.log({auth: true, token: token, name: admin.name, email: admin.email});
+            req.flash('success_msg', 'User signed in')
             res.redirect('/admin/adminview')
         }else{
-            return res.status(401).send({auth: false, message: 'Password is not valid'})
+            console.log({auth: false, message: 'Password is not valid'})
+            req.flash('error_msg', 'Password is not valid')
+            res.redirect('/admin/signin')
         }
     })
 })
@@ -120,8 +123,9 @@ router.post('/signin', (req, res)=>{
  */
 
 router.get('/logout', (req, res)=>{
-    req.logout()
-    res.redirect('/')
+    console.log({auth: false, token: null});
+    req.flash('success_msg', 'User logged out')
+    res.redirect('/admin/signin')
 })
 
 module.exports = router
