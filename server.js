@@ -56,10 +56,12 @@ app.use((req, res, next)=>{
 // Routes
 const auth = require('./routes/auth')
 const jobs = require('./routes/jobs')
+const admin = require('./routes/admin')
 
 app.use(require('./routes/index'))
 app.use('/auth', auth)
 app.use('/jobs', jobs)
+app.use('/admin', admin)
 
 //Static Files
 app.use(express.static(path.join(__dirname, 'public'))) 
