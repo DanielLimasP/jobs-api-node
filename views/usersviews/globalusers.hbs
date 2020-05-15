@@ -1,0 +1,54 @@
+{{> navAuth}}
+<div class="card   align-items-center">
+    <div class="card-body">
+        <div class="row align-items-center">
+            <table class="table">
+                <thead class="thead-dark">
+                    <tr>
+                    <th scope="col">Name</th>
+                    <th scope="col">Lastname</th>
+                    <th scope="col">Email</th>
+                    <th scope="col"></th>
+                    <th scope="col"></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        {{#each users}}
+                            <td>{{name}}</td>
+                            <td>{{lastname}}</td>
+                            <td>{{email}}</td>
+                            <td>
+                                <a href="/edituser/{{_id}}">
+                                    <i class="fas fa-edit"></i>
+                                </a>
+                            </td>
+                            <td>
+                                <form action="/notes/deleteuser/{{_id}}?_method=DELETE" method="POST">
+                                    <input type="hidden" name="_method" value="DELETE">
+                                    <button class="btn btn-danger btn-block btn-sm" type="submit">
+                                        Delete
+                                    </button>
+                                </form>
+                            </td>
+                            {{else}}
+                            <td colspan="5">
+                                <div class="card mx-auto">
+                                    <div class="card-body">
+                                        <p class="lead">
+                                            There are not Users yet
+                                        </p>
+                                        <a href="/notes/add" class="btn btn-success btn-block">
+                                            Create One!
+                                        </a>
+                                    </div>
+                                </div>
+                            </td>
+                        {{/each}}
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+
