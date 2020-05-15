@@ -12,11 +12,6 @@ const EmployerSchema = Schema({
     rate: Number
 })
 
-const PointSchema = Schema({
-    lat: Number,
-    lng: Number
-})
-
 const JobsSchema = Schema({
     _id:{
         type:String
@@ -33,7 +28,7 @@ const JobsSchema = Schema({
     amountPayment: { type: Number },
     description_img: { type: [String] },
     category: { type: String },
-    point: { type: PointSchema },
+    address: { type: String },
     maxWorkers: { type: Number },
     done: { type: Boolean }
 })

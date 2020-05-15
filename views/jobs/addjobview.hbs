@@ -21,8 +21,9 @@
             <div class="form-group">
                 <textarea name="description" placeholder="Description" class="form-control" value="{{Description}}" required/></textarea>
             </div>
-            <div class="form-group">
-                <input type="name" name="id" placeholder="Employer ID" class="form-control" value="{{_id}}" required/>
+            <div class="form-group" name="employer">
+                <input type="name" name="_id" placeholder="Employer ID" class="form-control" value="{{_id}}" required/>
+                <input type="hidden" name="rate" placeholder="Employer ID" class="form-control" value="" required/>
             </div>
             <div class="form-group">
                 <input type="number" name="amountpayment" placeholder="Amount Payment" class="form-control" value="{{amountPayment}}" required/>
@@ -33,16 +34,16 @@
             </div>
             <div>
                 <label>Choose a category: </label><br>
-                <select id="category">
-                    <option value="{{category}}">Plumbing</option>
-                    <option value="{{category}}">Carpentry</option>
-                    <option value="{{category}}">Gardening</option>
-                    <option value="{{category}}">Messenger</option>
-                    <option value="{{category}}">Cleaning</option>
-                    <option value="{{category}}">Computing</option>
-                    <option value="{{category}}">Electronics</option>
-                    <option value="{{category}}">Mechanic</option>
-                    <option value="{{category}}">Other</option>
+                <select class="form-control" name="category" value="{{category}}">
+                    <option>Plumbing</option>
+                    <option>Carpentry</option>
+                    <option>Gardening</option>
+                    <option>Messenger</option>
+                    <option>Cleaning</option>
+                    <option>Computing</option>
+                    <option>Electronics</option>
+                    <option>Mechanic</option>
+                    <option>Other</option>
                 </select>
             </div><br>
             <div>

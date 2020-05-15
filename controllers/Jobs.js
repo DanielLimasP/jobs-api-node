@@ -77,8 +77,10 @@ function getOneJob(req, res){
     })
 }
 
-function createJob(req, res){
-    const j = {
+async function createJob(req, res){
+    console.info("Body from request", req.body)
+    res.render('jobs/addjobview')
+    /*const j = {
         _id: Random.id(),
         ...req.body
     }
@@ -88,7 +90,7 @@ function createJob(req, res){
         if(err) return res.status(400).send({message: `Error on model ${err}`})
 
         res.status(200).send({job: jobStored})
-    })
+    })*/
 }
 
 function updateJob(req, res){
