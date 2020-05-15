@@ -5,4 +5,56 @@
         <h2>Add Jobs</h2>
         <p>Here you can add jobs for users</p>
     </div>
+    <div class="card-body">
+        <form action="/jobs/addjob" method="POST">
+            <div class="form-group">
+                <input type="name" name="name" placeholder="Name" class="form-control" value="{{name}}" required/>
+            </div>
+            <div class="form-group">
+                <input type="date" name="starteddate" placeholder="Started Date" class="form-control" value="{{startedDate}}" required/>
+            </div>
+            <div class="form-group">
+                <input type="date" name="duedate" placeholder="Due Date" class="form-control" value="{{dueDate}}" required/>
+            </div>
+            <div class="form-group">
+                <textarea name="description" placeholder="Description" class="form-control" value="{{Description}}" required/></textarea>
+            </div>
+            <div class="form-group">
+                <input type="name" name="id" placeholder="ID" class="form-control" value="{{_id}}" required/>
+            </div>
+            <div class="form-group">
+                <input type="number" name="amountpayment" placeholder="Amount Payment" class="form-control" value="{{amountPayment}}" required/>
+            </div>
+            <div>
+                <!-- TODO add img here -->
+            </div>
+            <div>
+                <label for="category">Choose a category:</label>
+                <select id="category">
+                    <option value="{{category}}">Plumbing</option>
+                    <option value="{{category}}">Carpentry</option>
+                    <option value="{{category}}">Gardening</option>
+                    <option value="{{category}}">Messenger</option>
+                    <option value="{{category}}">Cleaning</option>
+                    <option value="{{category}}">Computing</option>
+                    <option value="{{category}}">Electronics</option>
+                    <option value="{{category}}">Mechanic</option>
+                    <option value="{{category}}">Other</option>
+                </select>
+            </div>
+            <div>
+            <div class="form-group">
+                <input type="name" name="address" placeholder="Address" class="form-control" value="{{address}}" required/>
+            </div>
+            </div>
+            <div class="form-group">
+                <input type="number" name="maxWorkers" placeholder="Max Morkers" class="form-control" value="{{maxWorkers}}" required/>
+            </div>
+            <div class="form-group">
+                <button class="btn btn-primary btn-block">
+                    Add Job
+                </button>
+            </div>
+        </form>
+    </div>
 </div>
