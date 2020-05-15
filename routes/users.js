@@ -1,10 +1,16 @@
 const express = require('express')
-const router = express.Router()
+let router = express.Router()
 const UserModel = require('../models/User')
 const passport = require('passport')
 const jwt = require('jsonwebtoken')
 
-router.get('/users/globalusers', async (req, res)=>{
+const multipart = require('connect-multiparty')
+
+router.use(multipart({
+    uploadDir: 'tmp'
+}))
+
+router.get('/users/userlist', async (req, res)=>{
     await UserModel.find({name: 'Juan'}).sort({name: 'desc'}).then(concepts=>{
         const ctx = {
             users: concepts.map(concept =>{
@@ -21,6 +27,10 @@ router.get('/users/globalusers', async (req, res)=>{
     })
     
 
+})
+
+router.get('/globalusers',  (req,res)=>{
+    res.render('usersviews/globalusers')
 })
 
 module.exports = router
