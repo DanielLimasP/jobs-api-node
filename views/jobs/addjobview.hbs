@@ -11,25 +11,28 @@
                 <input type="name" name="name" placeholder="Name" class="form-control" value="{{name}}" required/>
             </div>
             <div class="form-group">
+                <label>Started Date: </label>
                 <input type="date" name="starteddate" placeholder="Started Date" class="form-control" value="{{startedDate}}" required/>
             </div>
             <div class="form-group">
+                <label>Due Date: </label>
                 <input type="date" name="duedate" placeholder="Due Date" class="form-control" value="{{dueDate}}" required/>
             </div>
             <div class="form-group">
                 <textarea name="description" placeholder="Description" class="form-control" value="{{Description}}" required/></textarea>
             </div>
             <div class="form-group">
-                <input type="name" name="id" placeholder="ID" class="form-control" value="{{_id}}" required/>
+                <input type="name" name="id" placeholder="Employer ID" class="form-control" value="{{_id}}" required/>
             </div>
             <div class="form-group">
                 <input type="number" name="amountpayment" placeholder="Amount Payment" class="form-control" value="{{amountPayment}}" required/>
             </div>
             <div>
-                <!-- TODO add img here -->
+                <label>Image: </label>
+                <img src="/img/main.PNG" class="mx-auto d-block m-4 logo" alt="Logo">
             </div>
             <div>
-                <label for="category">Choose a category:</label>
+                <label>Choose a category: </label><br>
                 <select id="category">
                     <option value="{{category}}">Plumbing</option>
                     <option value="{{category}}">Carpentry</option>
@@ -41,14 +44,14 @@
                     <option value="{{category}}">Mechanic</option>
                     <option value="{{category}}">Other</option>
                 </select>
-            </div>
+            </div><br>
             <div>
             <div class="form-group">
                 <input type="name" name="address" placeholder="Address" class="form-control" value="{{address}}" required/>
             </div>
             </div>
             <div class="form-group">
-                <input type="number" name="maxWorkers" placeholder="Max Morkers" class="form-control" value="{{maxWorkers}}" required/>
+                <input type="number" name="maxWorkers" placeholder="Maximum Workers" class="form-control" value="{{maxWorkers}}" required/>
             </div>
             <div class="form-group">
                 <button class="btn btn-primary btn-block">
