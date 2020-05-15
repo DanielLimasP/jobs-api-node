@@ -1,0 +1,31 @@
+{{> navigation}}
+<div class="row">
+    <ul class="list-group">
+        {{#each users}}
+            <li class="list-group-item">
+                <ul>
+                    <li>
+                        {{name}}
+                    </li>
+                    <li>
+                        {{lastname}}
+                    </li>
+                    <li>
+                        {{email}}
+                    </li>
+                </ul>
+            </li>
+            {{else}}
+            <div class="card mx-auto">
+                <div class="card-body">
+                    <p class="lead">
+                        There are not Users yet
+                    </p>
+                    <a href="/notes/add" class="btn btn-success btn-block">
+                        Create One!
+                    </a>
+                </div>
+            </div>
+        {{/each}}
+    </ul>
+</div>
