@@ -9,4 +9,8 @@ router.get('/about', (req, res)=>{
     res.render('about')
 })
 
+router.get('/aboutlogged', (req, res)=>{
+    res.render('aboutlogged')
+})
+
 module.exports = router
