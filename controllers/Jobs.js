@@ -77,20 +77,27 @@ function getOneJob(req, res){
     })
 }
 
-async function createJob(req, res){
+function createJob(req, res){
     console.info("Body from request", req.body)
-    res.render('jobs/addjobview')
-    /*const j = {
-        _id: Random.id(),
-        ...req.body
-    }
-    let job = new JobsSub(j)
+    const {name, startedDate, dueDate, description, _id, amountPayment, category, address, maxWorkers} = req.body
+    var date = new Date();
+    const publishDate = date.getFullYear() + "-" + (date.getMonth() + 1) + "-" + date.getDate()
+    const finishedDate = ""
+    const isActive = true
+    const rate = 0
+    const workers = JSON.parse('{"workers":{}}')
+    const employer = JSON.parse('{"employer":[{"_id":"' + _id + '","rate":' + rate + '}]}')
+    console.log(employer)
+    const done = false
+    const description_img = ""
+    const newJob = new JobsSub({_id:Random.id(), name, publishDate, finishedDate, startedDate,
+        dueDate, isActive, workers, description, employer, amountPayment, description_img,
+        category, address, maxWorkers, done})
+    newJob.save((err, jobStored)=>{
+        if(err) return res.status.send({message: `Error on model ${err}`})
 
-    job.save((err, jobStored)=>{
-        if(err) return res.status(400).send({message: `Error on model ${err}`})
-
-        res.status(200).send({job: jobStored})
-    })*/
+        res.status(200).render('jobs/alljobsview')
+    })
 }
 
 function updateJob(req, res){
