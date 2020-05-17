@@ -86,13 +86,14 @@ function createJob(req, res){
     const isActive = true
     const rate = 0
     const workers = JSON.parse('{"workers":{}}')
-    const employer = JSON.parse('{"employer":[{"_id":"' + _id + '","rate":' + rate + '}]}')
-    console.log(employer)
+    const employerData = {"_id":_id,"rate":rate}
+    console.log(employerData)
     const done = false
     const description_img = ""
     const newJob = new JobsSub({_id:Random.id(), name, publishDate, finishedDate, startedDate,
-        dueDate, isActive, workers, description, employer, amountPayment, description_img,
+        dueDate, isActive, workers, description, employer:employerData, amountPayment, description_img,
         category, address, maxWorkers, done})
+    console.log(newJob)
     newJob.save((err, jobStored)=>{
         if(err) return res.status.send({message: `Error on model ${err}`})
 
