@@ -14,9 +14,9 @@ const fs = require('fs')
 const cloudinary = require('cloudinary').v2
 Random = require('meteor-random')
 cloudinary.config({
-    cloud_name:'dz6pgtx3t',
-    api_key: '874717479975763',
-    api_secret: 'I2uZYCzyRbb3Iyz3_lNOR2RN-7k'
+    cloud_name:'perlapi',
+    api_key: '756782136451731',
+    api_secret: 'aeFULXGDNT6dgnf2qxkOSrklUm0'
 })
 /*
 // Cloudinary config for profe's cloud
@@ -27,13 +27,44 @@ cloudinary.config({
 })
 */ 
 
-function getAllJobs(req, res){
+async function getAllJobs(req, res){
+    await JobsSub.find({}).sort({publishDate: 'asc'}).then(concepts =>{
+        const ctx = {
+            items: concepts.map(concept => {
+                return {
+                    _id: concept._id,
+                    description_img: concept.description_img,
+                    name: concept.name,
+                    publishDate: concept.publishDate,
+                    finishedDate: concept.finishedDate,
+                    startedDate: concept.startedDate,
+                    dueDate: concept.dueDate,
+                    isActive: concept.isActive,
+                    workers: concept.workers,
+                    description: concept.description,
+                    employer: concept.employer,
+                    amountPayment: concept.amountPayment,
+                    category: concept.category,
+                    address: concept.address,
+                    maxWorkers: concept.maxWorkers,
+                    done: concept.done
+                }
+            })
+        }
+        res.status(200).render('jobs/alljobsview', {jobs: ctx.items})
+    })
+    /*var resultArray = []
     JobsSub.find({}, (err, concepts)=>{
         if(err) return res.status(500).send({message: `Problem with the searching request ${err}`})
         if(!concepts) return res.status(404).send({message: `Jobs does not exists`})
 
-        res.status(200).send({message: 'Request successful',totalJobs: concepts.length, jobs: concepts})
-    })
+        concepts.forEach(function(doc, err){
+            resultArray.push(doc)
+        });
+        console.log("I'm rendering")
+        res.status(200).render('jobs/alljobsview', {items: resultArray})
+        //res.status(200).send({message: 'Request successful',totalJobs: concepts.length, jobs: concepts})
+    })*/
 }
 
 function getJobsByPage(req, res){
@@ -97,7 +128,7 @@ function createJob(req, res){
     newJob.save((err, jobStored)=>{
         if(err) return res.status.send({message: `Error on model ${err}`})
 
-        res.status(200).render('jobs/alljobsview')
+        getAllJobs();
     })
 }
 

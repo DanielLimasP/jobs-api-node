@@ -5,4 +5,28 @@
         <h2>All Jobs</h2>
         <p>Here you can view all jobs for users</p>
     </div>
+    <hr>
+    <div class="card-body">
+        {{#each jobs}}
+            <article class="item">
+                <h3>ID: {{_id}}</h3>
+                <h3>Job: {{name}}</h3>
+                <img src="{{description_img}}"/>
+                <p>Published: {{publishDate}}</p>
+                <p>Finished: {{finishedDate}}</p>
+                <p>Start: {{startedDate}}</p>
+                <p>End: {{dueDate}}</p>
+                <p>Active: {{isActive}}</p>
+                <p>Workers: {{workers}}</p>
+                <p>Description: {{description}}</p>
+                <p>Employer: {{employer}}</p>
+                <p>Amount Offer: ${{amountPayment}}</p>
+                <p>Category: {{category}}</p>
+                <p>Address: {{address}}</p>
+                <p>Max Workers Required: {{maxWorkers}}</p>
+                <p>Done: {{done}}</p>
+            </article>
+            <hr>
+        {{/each}}
+    </div>
 </div>

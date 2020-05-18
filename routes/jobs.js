@@ -30,10 +30,6 @@ router.get('/editjobview', (req, res)=>{
     res.render('jobs/editjobview')
 })
 
-router.get('/alljobsview', (req, res)=>{
-    res.render('jobs/alljobsview')
-})
-
 router.get('/canceljobview', (req, res)=>{
     res.render('jobs/canceljobview')
 })

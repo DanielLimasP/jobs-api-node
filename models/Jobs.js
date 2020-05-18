@@ -26,7 +26,7 @@ const JobsSchema = Schema({
     description: { type: String },
     employer: { type: EmployerSchema},
     amountPayment: { type: Number },
-    description_img: { type: [String] },
+    description_img: { type: String},
     category: { type: String },
     address: { type: String },
     maxWorkers: { type: Number },
