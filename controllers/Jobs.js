@@ -3,6 +3,7 @@ module.exports = {
     getOneJob,
     createJob,
     updateJob,
+    toUpdateJob,
     deleteJob,
     getJobsByPage,
     uploadJobPhoto
@@ -53,18 +54,6 @@ async function getAllJobs(req, res){
         }
         res.status(200).render('jobs/alljobsview', {jobs: ctx.items})
     })
-    /*var resultArray = []
-    JobsSub.find({}, (err, concepts)=>{
-        if(err) return res.status(500).send({message: `Problem with the searching request ${err}`})
-        if(!concepts) return res.status(404).send({message: `Jobs does not exists`})
-
-        concepts.forEach(function(doc, err){
-            resultArray.push(doc)
-        });
-        console.log("I'm rendering")
-        res.status(200).render('jobs/alljobsview', {items: resultArray})
-        //res.status(200).send({message: 'Request successful',totalJobs: concepts.length, jobs: concepts})
-    })*/
 }
 
 function getJobsByPage(req, res){
@@ -109,7 +98,6 @@ function getOneJob(req, res){
 }
 
 function createJob(req, res){
-    console.info("Body from request", req.body)
     const {name, startedDate, dueDate, description, _id, amountPayment, category, address, maxWorkers} = req.body
     var date = new Date();
     const publishDate = date.getFullYear() + "-" + (date.getMonth() + 1) + "-" + date.getDate()
@@ -124,34 +112,43 @@ function createJob(req, res){
     const newJob = new JobsSub({_id:Random.id(), name, publishDate, finishedDate, startedDate,
         dueDate, isActive, workers, description, employer:employerData, amountPayment, description_img,
         category, address, maxWorkers, done})
-    console.log(newJob)
     newJob.save((err, jobStored)=>{
         if(err) return res.status.send({message: `Error on model ${err}`})
-
-        getAllJobs();
+        req.flash('success_msg', 'Job inserted Successfully')
+        res.status(200).redirect('/jobs/getalljobs')
     })
 }
 
-function updateJob(req, res){
-     let jobid = req.body._id
-     let update = req.body.job
-     /*JobsSub.findByIdAndUpdate({_id: jobid}, update, 
-        (err, concept)=>{
-        if (err) return res.status(500).send({ message: `Error in the request ${err}` })
-        res.status(201).send({message:'Job is updated', job: concept})
-     })*/
-     JobsSub.update({_id: jobid}, {$set: update}, (err, updated)=>{
-        if (err) console.log(err)
-        res.status(201).send({message:'Job is updated', job: updated})
-     })
+function toUpdateJob(req, res){
+    const {_id, name, description_img, startedDate, dueDate, workers, description, 
+        employer, amountPayment, address, maxWorkers} = req.body
+    res.status(200).render('jobs/editjobview', {_id, name, description_img, 
+        startedDate, dueDate, workers, description, employer, amountPayment, address, maxWorkers})
 }
 
-function deleteJob(req, res){
-    let jobID = req.body._id
+async function updateJob(req, res){
+    const {name, description_img, startedDate, dueDate, isActive, description, 
+        _employer, amountPayment, category, address, maxWorkers} = req.body
+    console.log(_employer)
+    var employerArray = _employer.replace(",","").split(" ")
+    const employerID = employerArray[2].replace("'","").replace("'","")
+    const employerRate = employerArray[4]
+    console.log(employerID)
+    console.log(employerRate)
+    const employerData = {"_id":employerID,"rate":employerRate}
+    console.log(employerData)
+    await JobsSub.findByIdAndUpdate(req.params.id, {name, description_img, startedDate, dueDate, 
+        isActive, description, employer:employerData, amountPayment, category, address, maxWorkers})
+    req.flash('success_msg', 'Job uptdated Successfully')
+    res.status(200).redirect('/jobs/getalljobs')
+}
 
+async function deleteJob(req, res){
+    let jobID = req.body._id
     JobsSub.remove({_id: jobID}, (err, concept)=>{
         if (err) return res.status(500).send({ message: `Error in the request ${err}` })
-        res.status(200).send({message: `Remove Completed`, job: concept})
+        req.flash('success_msg', 'Job deleted Successfully')
+        res.status(200).redirect('/jobs/getalljobs')
     })
 }
 

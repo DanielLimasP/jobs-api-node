@@ -5,4 +5,68 @@
         <h2>Edit Job</h2>
         <p>Here you can modify jobs for users</p>
     </div>
+    <hr>
+    <div class="card-body">
+        <form action="/jobs/updateJob/{{_id}}?_method=PUT" method="POST">
+            <input type="hidden" name="_method" value="PUT">
+            <div class="form-group">
+                <input type="name" name="_id" placeholder="ID" class="form-control" value="{{_id}}" required/>
+            </div>
+            <div class="form-group">
+                <input type="name" name="name" placeholder="Name" class="form-control" value="{{name}}" required/>
+            </div>
+            <div class="form-group">
+                <label>Started Date: </label>
+                <input type="date" name="startedDate" placeholder="Started Date" class="form-control" value="{{startedDate}}" required/>
+            </div>
+            <div class="form-group">
+                <label>Due Date: </label>
+                <input type="date" name="dueDate" placeholder="Due Date" class="form-control" value="{{dueDate}}" required/>
+            </div>
+            <div>
+                <label>Active: </label><br>
+                <label>Enable</label><input type="radio" name="isActive" class="form-control" value="true" checked/>
+                <label>Disable</label><input type="radio" name="isActive" class="form-control" value="false"/><br>
+            </div>
+            <div class="form-group">
+                <input type="name" name="description" placeholder="Description" class="form-control" value="{{description}}" required/>
+            </div>
+            <div class="form-group">
+                <input type="name" name="_employer" placeholder="Employer Data" class="form-control" value="{{employer}}" required/>
+            </div>
+            <div class="form-group">
+                <input type="number" name="amountPayment" placeholder="Amount Payment" class="form-control" value="{{amountPayment}}" required/>
+            </div>
+            <div class="form-group">
+                <input type="name" name="description_img" placeholder="Img URL" class="form-control" value="{{description_img}}" required/>
+            </div>
+            <div>
+                <label>Choose a category: </label><br>
+                <select class="form-control" name="category" value="{{category}}">
+                    <option>Plumbing</option>
+                    <option>Carpentry</option>
+                    <option>Gardening</option>
+                    <option>Messenger</option>
+                    <option>Cleaning</option>
+                    <option>Computing</option>
+                    <option>Electronics</option>
+                    <option>Mechanic</option>
+                    <option>Other</option>
+                </select>
+            </div><br>
+            <div>
+            <div class="form-group">
+                <input type="name" name="address" placeholder="Address" class="form-control" value="{{address}}" required/>
+            </div>
+            </div>
+            <div class="form-group">
+                <input type="number" name="maxWorkers" placeholder="Maximum Workers" class="form-control" value="{{maxWorkers}}" required/>
+            </div>
+            <div class="form-group">
+                <button class="btn btn-primary btn-block" type="submit">
+                    Edit Job
+                </button>
+            </div>
+        </form>
+    </div>
 </div>
