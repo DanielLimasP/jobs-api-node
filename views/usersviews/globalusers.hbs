@@ -8,6 +8,8 @@
                     <th scope="col">Name</th>
                     <th scope="col">Lastname</th>
                     <th scope="col">Email</th>
+                    <th scope="col">Password</th>
+                    <th scope="col">Phone</th>
                     <th scope="col"></th>
                     <th scope="col"></th>
                     </tr>
@@ -18,13 +20,15 @@
                             <td>{{name}}</td>
                             <td>{{lastname}}</td>
                             <td>{{email}}</td>
+                            <td>{{password}}</td>
+                            <td>{{phone}}</td>
                             <td>
                                 <a href="/edituser/{{_id}}">
                                     <i class="fas fa-edit"></i>
                                 </a>
                             </td>
                             <td>
-                                <form action="/notes/deleteuser/{{_id}}?_method=DELETE" method="POST">
+                                <form action="/deleteuser/{{_id}}?_method=DELETE" method="POST">
                                     <input type="hidden" name="_method" value="DELETE">
                                     <button class="btn btn-danger btn-block btn-sm" type="submit">
                                         Delete
