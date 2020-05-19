@@ -1,0 +1,35 @@
+{{> navAuth}}
+<div class="card">
+    
+    <div class="card-body">
+        <form action="/edit/{{user._id}}?_method=PUT" method="POST">
+            <input type="hidden" name="_method" value="PUT">
+            <div class="form-group">
+                <input type="name" name="_id" placeholder="ID" class="form-control" value="{{user._id}}" disabled="disabled" required/>
+            </div>
+            <div class="form-group">
+                <input type="text" name="name" placeholder="Name" class="form-control" value="{{user.name}}" required/>
+            </div>
+            <div class="form-group">
+                <input type="text" name="lastname" placeholder="Lastname" class="form-control" value="{{user.lastname}}" required/>
+            </div>
+            <div class="form-group">
+                <input type="email" name="email" placeholder="Email" class="form-control" value="{{user.email}}" required/>
+            </div>
+            <div class="form-group">
+                <input type="password" name="password" placeholder="Password" class="form-control" value="{{user.password}}" required/>
+            </div>
+            <div class="form-group">
+                <input type="text" name="phone" placeholder="Phone" class="form-control" value="{{user.phone}}" required/>
+            </div>
+            
+           
+            
+            <div class="form-group">
+                <button class="btn btn-primary btn-block" type="submit">
+                    Edit User
+                </button>
+            </div>
+        </form>
+    </div>
+</div>
