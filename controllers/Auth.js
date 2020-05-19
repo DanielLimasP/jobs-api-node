@@ -35,7 +35,7 @@ function logInUser(req, res){
     let passwordIsValid  = false
     User.findOne({'profile.email': email}).then((user)=>{
         console.log(user)
-        if(!user) return res.status(404).send('No user found')
+        if(!user) return res.status(404).send({auth: false, message: 'No user found'})
         //let passwordIsValid = bcrypt.compareSync(req.pass,user.profile.password)
         if(pass === user.profile.password) passwordIsValid = true
         
