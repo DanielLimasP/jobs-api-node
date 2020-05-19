@@ -14,7 +14,9 @@ router.post('/getjob', JobsController.getOneJob)
 
 router.post('/addjob', JobsController.createJob)
 
-router.patch('/updatejob', JobsController.updateJob)
+router.put('/updatejob/:id', JobsController.updateJob)
+
+router.post('/dataToUpdatejob', JobsController.toUpdateJob)
 
 router.post('/deletejob', JobsController.deleteJob)
 
@@ -28,14 +30,6 @@ router.get('/addjobview', (req, res)=>{
 
 router.get('/editjobview', (req, res)=>{
     res.render('jobs/editjobview')
-})
-
-router.get('/alljobsview', (req, res)=>{
-    res.render('jobs/alljobsview')
-})
-
-router.get('/canceljobview', (req, res)=>{
-    res.render('jobs/canceljobview')
 })
 
 module.exports = router;

@@ -5,4 +5,54 @@
         <h2>All Jobs</h2>
         <p>Here you can view all jobs for users</p>
     </div>
+    <hr>
+    <div class="card-body">
+        {{#each jobs}}
+            <article class="item">
+                <h3>ID: {{_id}}</h3>
+                <h3>Job: {{name}}</h3>
+                <img src="{{description_img}}"/>
+                <p>Published: {{publishDate}}</p>
+                <p>Finished: {{finishedDate}}</p>
+                <p>Start: {{startedDate}}</p>
+                <p>End: {{dueDate}}</p>
+                <p>Active: {{isActive}}</p>
+                <p>Workers: {{workers}}</p>
+                <p>Description: {{description}}</p>
+                <p>Employer: {{employer}}</p>
+                <p>Amount Payment: ${{amountPayment}}</p>
+                <p>Category: {{category}}</p>
+                <p>Address: {{address}}</p>
+                <p>Max Workers Required: {{maxWorkers}}</p>
+                <p>Done: {{done}}</p>
+                <form action="/jobs/dataToUpdateJob" method="POST">
+                    <input type="hidden" name="_id" class="form-control" value="{{_id}}"/>
+                    <input type="hidden" name="name" class="form-control" value="{{name}}"/>
+                    <input type="hidden" name="description_img" class="form-control" value="{{description_img}}"/>
+                    <input type="hidden" name="startedDate" class="form-control" value="{{startedDate}}"/>
+                    <input type="hidden" name="dueDate" class="form-control" value="{{dueDate}}"/>
+                    <input type="hidden" name="workers" class="form-control" value="{{workers}}"/>
+                    <input type="hidden" name="description" class="form-control" value="{{description}}"/>
+                    <input type="hidden" name="employer" class="form-control" value="{{employer}}"/>
+                    <input type="hidden" name="amountPayment" class="form-control" value="{{amountPayment}}"/>
+                    <input type="hidden" name="address" class="form-control" value="{{address}}"/>
+                    <input type="hidden" name="maxWorkers" class="form-control" value="{{maxWorkers}}"/>
+                    <div class="form-group">
+                        <button class="btn btn-primary btn-block">
+                            Edit
+                        </button>
+                    </div>
+                </form>
+                <form action="/jobs/deleteJob" method="POST">
+                    <input type="hidden" name="_id" class="form-control" value="{{_id}}"/>
+                    <div class="form-group">
+                        <button class="btn btn-primary btn-block">
+                            Delete
+                        </button>
+                    </div>
+                </form>
+            </article>
+            <hr>
+        {{/each}}
+    </div>
 </div>

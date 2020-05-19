@@ -3,6 +3,7 @@ module.exports = {
     getOneJob,
     createJob,
     updateJob,
+    toUpdateJob,
     deleteJob,
     getJobsByPage,
     uploadJobPhoto
@@ -14,9 +15,9 @@ const fs = require('fs')
 const cloudinary = require('cloudinary').v2
 Random = require('meteor-random')
 cloudinary.config({
-    cloud_name:'dz6pgtx3t',
-    api_key: '874717479975763',
-    api_secret: 'I2uZYCzyRbb3Iyz3_lNOR2RN-7k'
+    cloud_name:'perlapi',
+    api_key: '756782136451731',
+    api_secret: 'aeFULXGDNT6dgnf2qxkOSrklUm0'
 })
 /*
 // Cloudinary config for profe's cloud
@@ -27,12 +28,31 @@ cloudinary.config({
 })
 */ 
 
-function getAllJobs(req, res){
-    JobsSub.find({}, (err, concepts)=>{
-        if(err) return res.status(500).send({message: `Problem with the searching request ${err}`})
-        if(!concepts) return res.status(404).send({message: `Jobs does not exists`})
-
-        res.status(200).send({message: 'Request successful',totalJobs: concepts.length, jobs: concepts})
+async function getAllJobs(req, res){
+    await JobsSub.find({}).sort({publishDate: 'asc'}).then(concepts =>{
+        const ctx = {
+            items: concepts.map(concept => {
+                return {
+                    _id: concept._id,
+                    description_img: concept.description_img,
+                    name: concept.name,
+                    publishDate: concept.publishDate,
+                    finishedDate: concept.finishedDate,
+                    startedDate: concept.startedDate,
+                    dueDate: concept.dueDate,
+                    isActive: concept.isActive,
+                    workers: concept.workers,
+                    description: concept.description,
+                    employer: concept.employer,
+                    amountPayment: concept.amountPayment,
+                    category: concept.category,
+                    address: concept.address,
+                    maxWorkers: concept.maxWorkers,
+                    done: concept.done
+                }
+            })
+        }
+        res.status(200).render('jobs/alljobsview', {jobs: ctx.items})
     })
 }
 
@@ -78,7 +98,6 @@ function getOneJob(req, res){
 }
 
 function createJob(req, res){
-    console.info("Body from request", req.body)
     const {name, startedDate, dueDate, description, _id, amountPayment, category, address, maxWorkers} = req.body
     var date = new Date();
     const publishDate = date.getFullYear() + "-" + (date.getMonth() + 1) + "-" + date.getDate()
@@ -86,40 +105,50 @@ function createJob(req, res){
     const isActive = true
     const rate = 0
     const workers = JSON.parse('{"workers":{}}')
-    const employer = JSON.parse('{"employer":[{"_id":"' + _id + '","rate":' + rate + '}]}')
-    console.log(employer)
+    const employerData = {"_id":_id,"rate":rate}
+    console.log(employerData)
     const done = false
     const description_img = ""
     const newJob = new JobsSub({_id:Random.id(), name, publishDate, finishedDate, startedDate,
-        dueDate, isActive, workers, description, employer, amountPayment, description_img,
+        dueDate, isActive, workers, description, employer:employerData, amountPayment, description_img,
         category, address, maxWorkers, done})
     newJob.save((err, jobStored)=>{
         if(err) return res.status.send({message: `Error on model ${err}`})
-
-        res.status(200).render('jobs/alljobsview')
+        req.flash('success_msg', 'Job inserted Successfully')
+        res.status(200).redirect('/jobs/getalljobs')
     })
 }
 
-function updateJob(req, res){
-     let jobid = req.body._id
-     let update = req.body.job
-     /*JobsSub.findByIdAndUpdate({_id: jobid}, update, 
-        (err, concept)=>{
-        if (err) return res.status(500).send({ message: `Error in the request ${err}` })
-        res.status(201).send({message:'Job is updated', job: concept})
-     })*/
-     JobsSub.update({_id: jobid}, {$set: update}, (err, updated)=>{
-        if (err) console.log(err)
-        res.status(201).send({message:'Job is updated', job: updated})
-     })
+function toUpdateJob(req, res){
+    const {_id, name, description_img, startedDate, dueDate, workers, description, 
+        employer, amountPayment, address, maxWorkers} = req.body
+    res.status(200).render('jobs/editjobview', {_id, name, description_img, 
+        startedDate, dueDate, workers, description, employer, amountPayment, address, maxWorkers})
 }
 
-function deleteJob(req, res){
-    let jobID = req.body._id
+async function updateJob(req, res){
+    const {name, description_img, startedDate, dueDate, isActive, description, 
+        _employer, amountPayment, category, address, maxWorkers} = req.body
+    console.log(_employer)
+    var employerArray = _employer.replace(",","").split(" ")
+    const employerID = employerArray[2].replace("'","").replace("'","")
+    const employerRate = employerArray[4]
+    console.log(employerID)
+    console.log(employerRate)
+    const employerData = {"_id":employerID,"rate":employerRate}
+    console.log(employerData)
+    await JobsSub.findByIdAndUpdate(req.params.id, {name, description_img, startedDate, dueDate, 
+        isActive, description, employer:employerData, amountPayment, category, address, maxWorkers})
+    req.flash('success_msg', 'Job uptdated Successfully')
+    res.status(200).redirect('/jobs/getalljobs')
+}
 
+async function deleteJob(req, res){
+    let jobID = req.body._id
     JobsSub.remove({_id: jobID}, (err, concept)=>{
         if (err) return res.status(500).send({ message: `Error in the request ${err}` })
-        res.status(200).send({message: `Remove Completed`, job: concept})
+        req.flash('success_msg', 'Job deleted Successfully')
+        res.status(200).redirect('/jobs/getalljobs')
     })
 }
 
