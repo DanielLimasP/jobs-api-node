@@ -114,7 +114,7 @@ async function createJob(req, res){
         const uniqueFilename = Random.id()
         const cloudinary = require('cloudinary').v2;
         await cloudinary.uploader.upload(path, { public_id: `jobs/${uniqueFilename}`, tags: `jobs` }, (err, result)=> { 
-            if (err) return res.send(err)
+            if (err) imgUrl = ""
             //console.log("Cloudinary result", result)
             console.log(result.url)
             imgUrl = result.url
