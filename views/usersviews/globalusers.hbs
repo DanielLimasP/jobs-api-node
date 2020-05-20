@@ -1,35 +1,54 @@
 {{> navAuth}}
-<div class="card   align-items-center">
-    <div class="card-body">
+<div class="card   align-items-center" id="table">
+    <div >
         <div class="row align-items-center">
             <table class="table">
                 <thead class="thead-dark">
                     <tr>
+                    <th scope="col">Display name</th>
                     <th scope="col">Name</th>
                     <th scope="col">Lastname</th>
                     <th scope="col">Email</th>
                     <th scope="col">Password</th>
                     <th scope="col">Phone</th>
+                    <th scope="col">BirthDate</th>
+                    <th scope="col">Address</th>
+                    <th scope="col">Gender</th>
+                    <th scope="col">Marital Status</th>
+                    <th scope="col">Profile image</th>
+                    <th scope="col">Degree</th>
+                    <th scope="col">Role</th>
+                    <th scope="col">Required Documents</th>
                     <th scope="col"></th>
                     <th scope="col"></th>
                     </tr>
                 </thead>
                 <tbody>
+                    {{#each users}}
                     <tr>
-                        {{#each users}}
+                        
+                            <td>{{displayName}}</td>
                             <td>{{name}}</td>
                             <td>{{lastname}}</td>
                             <td>{{email}}</td>
                             <td>{{password}}</td>
                             <td>{{phone}}</td>
+                            <td>{{birthDate}}</td>
+                            <td>{{addressStreet}} {{addressCity}} {{addressState}} {{addressZip}}</td>
+                            <td>{{gender}}</td>
+                            <td>{{maritalStatus}}</td>
+                            <td>{{profileImg}}</td>
+                            <td>{{degree}}</td>
+                            <td>{{roles}}</td>
+                            <td>{{ine}}, {{certficate}}, {{residenceProof}}</td>
                             <td>
                                 <a href="/edituser/{{_id}}">
                                     <i class="fas fa-edit"></i>
                                 </a>
                             </td>
                             <td>
-                                <form action="/deleteuser/{{_id}}?_method=DELETE" method="POST">
-                                    <input type="hidden" name="_method" value="DELETE">
+                                <form action="/deleteuser" method="POST">
+                                    <input type="hidden" name="_id" value="{{_id}}">
                                     <button class="btn btn-danger btn-block btn-sm" type="submit">
                                         Delete
                                     </button>
@@ -48,8 +67,9 @@
                                     </div>
                                 </div>
                             </td>
-                        {{/each}}
+                        
                     </tr>
+                    {{/each}}
                 </tbody>
             </table>
         </div>

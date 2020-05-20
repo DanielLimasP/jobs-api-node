@@ -35,14 +35,14 @@ function logInUser(req, res){
     let passwordIsValid  = false
     User.findOne({'profile.email': email}).then((user)=>{
         console.log(user)
-        if(!user) return res.status(404).send('No user found')
+        if(!user) return res.status(404).send({auth: false, message: 'No user found'})
         //let passwordIsValid = bcrypt.compareSync(req.pass,user.profile.password)
         if(pass === user.profile.password) passwordIsValid = true
         
         if(!passwordIsValid) return res.status(401).send({auth: false, message: 'Password is not valid'})
         let token = jwt.sign({email: user.profile.email}, process.env.JWT_SECRET, { expiresIn: 864000 }  //expires in 24 hours
         )
-        res.status(200).send({auth: true, token: token, name: user.profile.username, email:user.profile.email});
+        //res.status(200).send({auth: true, token: token, name: user.profile.username, email:user.profile.email});
         res.redirect('jobs/main-page-jobs')
     })
 }
