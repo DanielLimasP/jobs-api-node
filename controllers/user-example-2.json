@@ -1,23 +1,21 @@
 {
-    "username": "Daniel Limas",
-    "profile" : {
-        "name": "Daniel",
-        "lastname": "Limas",
-        "email": "amedlimas@gmail.com",
-        "password": "1234",
-        "phone": "6141576649",
-        "birthDate": "12-02-1997",
-        "address": {
-            "street":  "54 0594",
-            "city":  "Chihuahua",
-            "state":  "Chihuahua",
-            "zipCode": "31000" 
-        },
-        "gender": "masculino",
-        "maritalStatus": "soltero",
-        "profileImg": "daniel_profile",
-        "degree":"Ingenieria",
-        "roles": "admin"
+    "username": "User Test",
+    "name": "user",
+    "lastname": "super",
+    "email": "a@gmail.com",
+    "password": "1234",
+    "phone": "6141457908",
+    "birthDate": "05-05-1997",
+    "address": {
+        "street":  "05 0500",
+        "city":  "Chihuahua",
+        "state":  "Chihuahua",
+        "zipCode": "31000" 
     },
+    "gender": "masculino",
+    "maritalStatus": "soltero",
+    "profileImg": "user_profile",
+    "degree":"Ingenieria",
+    "roles": "admin",
     "terms": true
 }

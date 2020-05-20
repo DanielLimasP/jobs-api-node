@@ -22,13 +22,13 @@ const ProfileSchema = Schema({
     password: { type: String, optional:false },// TODO use SHA256 to encrypt
     phone: { type: String, optional:false },
     birthDate: { type: String, optional:false },
-    address: { type: AddressSchema },
+    address: { type: AddressSchema, optional: true},
     gender: { type: String, optional:true },
     maritalStatus: {  type: String, optional:true }, //TODO agregar arreglo de status
     profileImg: { type: String, optional:true },
     degree: { type: String, optional:true },
     roles: { type:[String], allowedValues: ['admin', 'developer', 'manager'] },
-    requiredDocuments: { type: DocumentsSchema}
+    requiredDocuments: { type: DocumentsSchema, optional: true}
 })
 
 const UserSchema = Schema({
