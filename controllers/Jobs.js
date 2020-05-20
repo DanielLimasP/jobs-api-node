@@ -97,8 +97,8 @@ function getOneJob(req, res){
     })
 }
 
-function createJob(req, res){
-    const {name, startedDate, dueDate, description, _id, amountPayment, category, address, maxWorkers} = req.body
+async function createJob(req, res){
+    const {name, startedDate, dueDate, description, _id, amountPayment, description_img, category, address, maxWorkers} = req.body
     var date = new Date();
     const publishDate = date.getFullYear() + "-" + (date.getMonth() + 1) + "-" + date.getDate()
     const finishedDate = ""
@@ -106,17 +106,36 @@ function createJob(req, res){
     const rate = 0
     const workers = JSON.parse('{"workers":{}}')
     const employerData = {"_id":_id,"rate":rate}
-    console.log(employerData)
     const done = false
-    const description_img = ""
-    const newJob = new JobsSub({_id:Random.id(), name, publishDate, finishedDate, startedDate,
-        dueDate, isActive, workers, description, employer:employerData, amountPayment, description_img,
+    var imgUrl
+    if (description_img != null){
+        console.log(_id)
+        const path = description_img
+        const uniqueFilename = Random.id()
+        const cloudinary = require('cloudinary').v2;
+        await cloudinary.uploader.upload(path, { public_id: `jobs/${uniqueFilename}`, tags: `jobs` }, (err, result)=> { 
+            if (err) return res.send(err)
+            //console.log("Cloudinary result", result)
+            console.log(result.url)
+            imgUrl = result.url
+            console.log(imgUrl)
+            //updateDescImages(_id, imgUrl)
+            fs.unlinkSync(path)
+        });
+    } else {
+        console.log("is nothing")
+        imgUrl = ""
+    }
+    console.log("here is imgUrl")
+    console.log(imgUrl)
+    const newJob = new JobsSub({_id:Random.id(), name, publishDate, finishedDate, startedDate, dueDate, 
+        isActive, workers, description, employer:employerData, amountPayment, description_img:imgUrl,
         category, address, maxWorkers, done})
     newJob.save((err, jobStored)=>{
         if(err) return res.status.send({message: `Error on model ${err}`})
         req.flash('success_msg', 'Job inserted Successfully')
         res.status(200).redirect('/jobs/getalljobs')
-    })
+    });
 }
 
 function toUpdateJob(req, res){
@@ -169,7 +188,7 @@ function updateDescImages(id, update){
 }
 
 function uploadJobPhoto(req, res){
-    const path = req.files.file.path
+    const path = req.body.path
     const jobID = req.body._id
     console.log(jobID)
     const uniqueFilename = Random.id()
@@ -180,11 +199,11 @@ function uploadJobPhoto(req, res){
         // "url": "http://res.cloudinary.com/dz6pgtx3t/image/upload/v1585857527/jobs/38Mr7jtkz6HCWn5kk.gif",
 
         let urlString = result.url
-        let finalString = urlString.replace("http://res.cloudinary.com/dz6pgtx3t/image/upload/", "")
+        //let finalString = urlString.replace("http://res.cloudinary.com/dz6pgtx3t/image/upload/", "")
 
         //console.log("Final Url", finalUrl)
         //updateDescImages(jobID, result.path)
-        updateDescImages(jobID, finalString)
+        updateDescImages(jobID, urlString)
         fs.unlinkSync(path)
         res.status(200).send({message: "upload image success", imageData: result})
     });
