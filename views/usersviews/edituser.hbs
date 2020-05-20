@@ -8,6 +8,9 @@
                 <input type="name" name="_id" placeholder="ID" class="form-control" value="{{user._id}}" disabled="disabled" required/>
             </div>
             <div class="form-group">
+                <input type="text" name="displayName" placeholder="Display name" class="form-control" value="{{user.displayName}}" required/>
+            </div>
+            <div class="form-group">
                 <input type="text" name="name" placeholder="Name" class="form-control" value="{{user.name}}" required/>
             </div>
             <div class="form-group">
@@ -22,8 +25,77 @@
             <div class="form-group">
                 <input type="text" name="phone" placeholder="Phone" class="form-control" value="{{user.phone}}" required/>
             </div>
-            
-           
+           <div class="form-group">
+               <input type="date" name="birthdate" placeholder="Birthdate" class="form-control" value="{{user.birthDate}}" required/>
+           </div>
+           <div class="card align-items-center">
+               <h4>Address</h4>
+                <div class="form-group">
+                    <input type="text" name="street" placeholder="Street" class="form-control" value="{{user.addressStreet}}">
+                </div>
+                <div class="form-group">
+                    <input type="text" name="city" placeholder="City" class="form-control" value="{{user.addressCity}}">
+                </div>
+                <div class="form-group">
+                    <input type="text" name="state" placeholder="State" class="form-control" value="{{user.addressState}}">
+                </div>
+                <div class="form-group">
+                    <input type="text" name="zipcode" placeholder="ZipCode" class="form-control" value="{{user.addressZip}}">
+                </div>
+           </div><br>
+            <div>
+                <h4>Gender</h4>
+                <label>Choose an option: </label><br>
+                <select class="form-control" name="gender" value="{{user.gender}}">
+                    <option>Male</option>
+                    <option>Female</option>
+                    <option>Other</option>
+                </select>
+            </div><br>
+             <div>
+                <h4>Marital Status</h4>
+                <label>Choose an option: </label><br>
+                <select class="form-control" name="maritalStatus" value="{{user.maritalStatus}}">
+                    <option>Single</option>
+                    <option>Married</option>
+                    <option>Divorced</option>
+                    <option>Widowed</option>
+                </select>
+            </div><br>
+            <div class="form-group">
+                <input type="text" name="profileimg" placeholder="Profiel image" class="form-control" value="{{user.profileImg}}">
+            </div><br>
+            <div>
+                <h4>Degree</h4>
+                <label>Choose an option: </label><br>
+                <select class="form-control" name="degree" value="{{user.degree}}">
+                    <option>None</option>
+                    <option>Associate</option>
+                    <option>Bachelor</option>
+                    <option>Master</option>
+                    <option>Doctoral</option>
+                </select>
+            </div><br>
+            <div>
+                <h4>Roles </h4>
+                <label>Choose an option: </label><br>
+                <select class="form-control" name="roles" value="{{user.roles}}">
+                    <option>admin</option>
+                    <option>developer</option>
+                    <option>manager</option>
+                </select>
+            </div><br>
+            <div class="card">
+                <div class="form-group">
+                    <input type="text" name="ine" placeholder="INE" class="form-control" value="{{user.ine}}">
+                </div>
+                <div class="form-group">
+                    <input type="text" name="certificate" placeholder="Certificate" class="form-control" value="{{user.certificate}}">
+                </div>
+                <div class="form-group">
+                    <input type="text" name="residenceProof" placeholder="recidenceProof" class="form-control" value="{{user.residenceProof}}">
+                </div>
+            </div>
             
             <div class="form-group">
                 <button class="btn btn-primary btn-block" type="submit">

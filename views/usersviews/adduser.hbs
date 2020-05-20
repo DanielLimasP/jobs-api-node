@@ -1,0 +1,103 @@
+{{> navAuth}}
+<div class="card">
+    
+    <div class="card-body">
+        <form action="/newuser" method="POST">
+            <div class="form-group">
+                <input type="text" name="displayName" placeholder="Display name" class="form-control" value="{{displayName}}" required/>
+            </div>
+            <div class="form-group">
+                <input type="text" name="name" placeholder="Name" class="form-control" value="{{name}}" required/>
+            </div>
+            <div class="form-group">
+                <input type="text" name="lastname" placeholder="Lastname" class="form-control" value="{{lastname}}" required/>
+            </div>
+            <div class="form-group">
+                <input type="email" name="email" placeholder="Email" class="form-control" value="{{email}}" required/>
+            </div>
+            <div class="form-group">
+                <input type="password" name="password" placeholder="Password" class="form-control" value="{{password}}" required/>
+            </div>
+            <div class="form-group">
+                <input type="text" name="phone" placeholder="Phone" class="form-control" value="{{phone}}" required/>
+            </div>
+           <div class="form-group">
+               <input type="date" name="birthdate" placeholder="Birthdate" class="form-control" value="{{birthDate}}" required/>
+           </div>
+           <div class="card align-items-center">
+               <h4>Address</h4>
+                <div class="form-group">
+                    <input type="text" name="street" placeholder="Street" class="form-control" value="{{addressStreet}}">
+                </div>
+                <div class="form-group">
+                    <input type="text" name="city" placeholder="City" class="form-control" value="{{addressCity}}">
+                </div>
+                <div class="form-group">
+                    <input type="text" name="state" placeholder="State" class="form-control" value="{{addressState}}">
+                </div>
+                <div class="form-group">
+                    <input type="text" name="zipcode" placeholder="ZipCode" class="form-control" value="{{addressZip}}">
+                </div>
+           </div><br>
+            <div>
+                <h4>Gender</h4>
+                <label>Choose an option: </label><br>
+                <select class="form-control" name="gender" value="{{gender}}">
+                    <option>Male</option>
+                    <option>Female</option>
+                    <option>Other</option>
+                </select>
+            </div><br>
+             <div>
+                <h4>Marital Status</h4>
+                <label>Choose an option: </label><br>
+                <select class="form-control" name="maritalStatus" value="{{maritalStatus}}">
+                    <option>Single</option>
+                    <option>Married</option>
+                    <option>Divorced</option>
+                    <option>Widowed</option>
+                </select>
+            </div><br>
+            <div class="form-group">
+                <input type="text" name="profileimg" placeholder="Profiel image" class="form-control" value="{{profileImg}}">
+            </div><br>
+            <div>
+                <h4>Degree</h4>
+                <label>Choose an option: </label><br>
+                <select class="form-control" name="degree" value="{{degree}}">
+                    <option>None</option>
+                    <option>Associate</option>
+                    <option>Bachelor</option>
+                    <option>Master</option>
+                    <option>Doctoral</option>
+                </select>
+            </div><br>
+            <div>
+                <h4>Roles </h4>
+                <label>Choose an option: </label><br>
+                <select class="form-control" name="roles" value="{{roles}}">
+                    <option>admin</option>
+                    <option>developer</option>
+                    <option>manager</option>
+                </select>
+            </div><br>
+            <div class="card">
+                <div class="form-group">
+                    <input type="text" name="ine" placeholder="INE" class="form-control" value="{{ine}}">
+                </div>
+                <div class="form-group">
+                    <input type="text" name="certificate" placeholder="Certificate" class="form-control" value="{{certificate}}">
+                </div>
+                <div class="form-group">
+                    <input type="text" name="residenceProof" placeholder="recidenceProof" class="form-control" value="{{residenceProof}}">
+                </div>
+            </div>
+            
+            <div class="form-group">
+                <button class="btn btn-primary btn-block" type="submit">
+                    Create new User
+                </button>
+            </div>
+        </form>
+    </div>
+</div>
