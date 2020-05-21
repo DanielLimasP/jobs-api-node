@@ -29,7 +29,8 @@ cloudinary.config({
 })
 
 function logInUser(req, res){
-    console.info("body from request", req.body)
+    console.info("Login req.body:")
+    console.log(req.body)
     const email = req.body.email
     const pass = req.body.password
     let passwordIsValid  = false
@@ -49,6 +50,7 @@ function logInUser(req, res){
 
 
 function logOutUser(req, res) {
+    console.log("User LogOut")
     res.status(200).send({auth: false, token: null});
 }
 
@@ -70,7 +72,8 @@ function getCurrentUser(req, res) {
 }
 
 function signUpUser(req, res) {
-    console.info("Body from request", req.body)
+    console.info("Signup req.body:")
+    console.log(req.body)
     const user = new User({
         displayName: req.body.username,
         profile: {
@@ -106,6 +109,7 @@ function signUpUser(req, res) {
 }
 
 function uploadProfilePhoto(req, res){
+    console.log("User uploading photo operation")
     const path = req.files.file.path
     const uniqueFilename = Random.id()
     const cloudinary = require('cloudinary').v2;
