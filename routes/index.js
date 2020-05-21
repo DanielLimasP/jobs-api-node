@@ -76,17 +76,10 @@ router.get('/edituser/:id', async (req, res)=>{
 })
 
 router.post('/edit/:id', async (req, res)=>{
-    //console.log('id', req.params.id)
     console.log('body', req.body)
     console.log('id', req.body._id)
-    //console.log('variables', {name, lastname, email, password, phone})
-    //await UserModel.findByIdAndUpdate(req.params.id, {name, lastname, email, password, phone})
-
-    //req.flash('success_msg', 'User uptdated Successfully')
-    //res.status(200).redirect('/globalusers')
     const {displayName, name, lastname, email, password, phone, birthdate, street, city, state, zipcode,
         gender, maritalStatus, profileimg, degree, roles, ine, certificate, residenceProof} = req.body
-        
         
         const userObj = {
             "displayName":displayName,
@@ -107,13 +100,14 @@ router.post('/edit/:id', async (req, res)=>{
             },
             "terms":true
         }
+
          UserModel.update({_id:req.body._id}, {$set: userObj}, (err, res)=>{
             if(err) return console.log(err)
             req.flash('success_msg', 'User Updated Successfully')
             
          })
         
-            res.status(200).redirect('/globalusers')
+        res.status(200).redirect('/globalusers')
             
         
 })
@@ -134,13 +128,23 @@ router.get('/adduser', async (req, res)=>{
 router.post('/newuser', async (req, res)=>{
     const {displayName, name, lastname, email, password, phone, birthdate, street, city, state, zipcode,
     gender, maritalStatus, profileimg, degree, roles, ine, certificate, residenceProof} = req.body
-    
-    const address1 = {"street":street,"city":city, "state":state, "zipCode":zipcode}
-    const documents = {"INE": ine, "certificate":certificate, "residenceProof":residenceProof}
-    const profile = {"name":name,"lastname":lastname,"email":email,"password":password,"phone":phone
-    ,"birthDate":birthdate,"address":address1,"gender":gender,"maritalStatus":maritalStatus,"profileImg":profileimg,
-    "degree":degree,"roles":roles,"requiredDocuments":documents}
+    const profile = {
+        "name":name,
+        "lastname":lastname,
+        "email":email,
+        "password":password,
+        "phone":phone,
+        "birthDate":birthdate,
+        "address":{"street":street,"city":city, "state":state, "zipCode":zipcode},
+        "gender":gender,
+        "maritalStatus":maritalStatus,
+        "profileImg":profileimg,
+        "degree":degree,
+        "roles":roles,
+        "requiredDocuments":{"INE": ine, "certificate":certificate, "residenceProof":residenceProof}
+    }
     const terms = true
+    
     const newJob = new UserModel({displayName, profile:profile, terms})
     newJob.save((err, userStored)=>{
         if(err) return res.status.send({message: `Error on model ${err}`})
