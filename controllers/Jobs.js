@@ -97,7 +97,7 @@ function getOneJob(req, res){
     })
 }
 
-async function createJob(req, res){
+async function createJob(req, res, next){
     const {name, startedDate, dueDate, description, _id, amountPayment, description_img, category, address, maxWorkers} = req.body
     var date = new Date();
     const publishDate = date.getFullYear() + "-" + (date.getMonth() + 1) + "-" + date.getDate()
@@ -114,16 +114,14 @@ async function createJob(req, res){
         const uniqueFilename = Random.id()
         const cloudinary = require('cloudinary').v2;
         await cloudinary.uploader.upload(path, { public_id: `jobs/${uniqueFilename}`, tags: `jobs` }, (err, result)=> { 
-            if (err) {
-                imgUrl = ""
-            } else {
-                //console.log("Cloudinary result", result)
-                console.log(result.url)
-                imgUrl = result.url
-                console.log(imgUrl)
-                //updateDescImages(_id, imgUrl)
-                fs.unlinkSync(path)
-            }
+            if (err) req.flash('error_msg', 'Img not correct'); return res.redirect('/jobs/addJobView') 
+            
+            //console.log("Cloudinary result", result)
+            console.log(result.url)
+            imgUrl = result.url
+            console.log(imgUrl)
+            //updateDescImages(_id, imgUrl)
+            fs.unlinkSync(path) 
         });
     } else {
         console.log("is nothing")
