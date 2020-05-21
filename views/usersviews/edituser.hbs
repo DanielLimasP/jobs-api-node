@@ -2,10 +2,10 @@
 <div class="card">
     
     <div class="card-body">
-        <form action="/edit/{{user._id}}?_method=PUT" method="POST">
-            <input type="hidden" name="_method" value="PUT">
+        <form action="/edit/{{user._id}}" method="POST">
+            
             <div class="form-group">
-                <input type="name" name="_id" placeholder="ID" class="form-control" value="{{user._id}}" disabled="disabled" required/>
+                <input type="name" name="_id" placeholder="ID" class="form-control" value="{{user._id}}" readonly="readonly" required/>
             </div>
             <div class="form-group">
                 <input type="text" name="displayName" placeholder="Display name" class="form-control" value="{{user.displayName}}" required/>
