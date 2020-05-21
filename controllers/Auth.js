@@ -42,7 +42,7 @@ function logInUser(req, res){
         if(!passwordIsValid) return res.status(401).send({auth: false, message: 'Password is not valid'})
         let token = jwt.sign({email: user.profile.email}, process.env.JWT_SECRET, { expiresIn: 864000 }  //expires in 24 hours
         )
-        //res.status(200).send({auth: true, token: token, name: user.profile.username, email:user.profile.email});
+        res.status(200).send({auth: true, token: token, name: user.profile.username, email:user.profile.email});
         res.redirect('jobs/main-page-jobs')
     })
 }
