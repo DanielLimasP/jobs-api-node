@@ -29,7 +29,8 @@ cloudinary.config({
 })
 
 function logInUser(req, res){
-    console.info("body from request", req.body)
+    console.info("Login req.body:")
+    console.log(req.body)
     const email = req.body.email
     const pass = req.body.password
     let passwordIsValid  = false
@@ -42,13 +43,14 @@ function logInUser(req, res){
         if(!passwordIsValid) return res.status(401).send({auth: false, message: 'Password is not valid'})
         let token = jwt.sign({email: user.profile.email}, process.env.JWT_SECRET, { expiresIn: 864000 }  //expires in 24 hours
         )
-        //res.status(200).send({auth: true, token: token, name: user.profile.username, email:user.profile.email});
+        res.status(200).send({auth: true, token: token, name: user.profile.username, email:user.profile.email});
         res.redirect('jobs/main-page-jobs')
     })
 }
 
 
 function logOutUser(req, res) {
+    console.log("User LogOut")
     res.status(200).send({auth: false, token: null});
 }
 
@@ -70,7 +72,8 @@ function getCurrentUser(req, res) {
 }
 
 function signUpUser(req, res) {
-    console.info("Body from request", req.body)
+    console.info("Signup req.body:")
+    console.log(req.body)
     const user = new User({
         displayName: req.body.username,
         profile: {
@@ -106,6 +109,7 @@ function signUpUser(req, res) {
 }
 
 function uploadProfilePhoto(req, res){
+    console.log("User uploading photo operation")
     const path = req.files.file.path
     const uniqueFilename = Random.id()
     const cloudinary = require('cloudinary').v2;
