@@ -128,8 +128,8 @@ async function createJob(req, res, next){
             }
         });
     } else {
-        console.log("is nothing")
-        imgUrl = ""
+        console.log("Default img")
+        imgUrl = "https://res.cloudinary.com/perlapi/image/upload/v1590690450/logo_hkqot2.png"
     }
     console.log("here is imgUrl")
     console.log(imgUrl)
