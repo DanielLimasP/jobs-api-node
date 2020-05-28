@@ -36,30 +36,14 @@ function logInUser(req, res){
     let passwordIsValid  = false
     User.findOne({'profile.email': email}).then((user)=>{
         console.log(user)
-        if(!user){
-            console.log({auth: false, message: 'No user found'})
-            return res.status(404).send({auth: false, message: 'No user found'})
-        }    
+        if(!user) return res.status(404).send({auth: false, message: 'No user found'})
         //let passwordIsValid = bcrypt.compareSync(req.pass,user.profile.password)
         if(pass === user.profile.password) passwordIsValid = true
         
-        if(!passwordIsValid) {
-            console.log({auth: false, message: 'Password is not valid'})
-            return res.status(401).send({auth: false, message: 'Password is not valid'})
-        }
+        if(!passwordIsValid) return res.status(401).send({auth: false, message: 'Password is not valid'})
         let token = jwt.sign({email: user.profile.email}, process.env.JWT_SECRET, { expiresIn: 864000 }  //expires in 24 hours
         )
-
-        // Let's just ignore the fact that we are sending the user password inside the header...
-        // We send to the client:
-        // Email
-        // id
-        // password
-        // token
-        // username/name    
-        console.log({auth: true, token: token, id: user._id, name: user.profile.name, email:user.profile.email, password:user.profile.password})
-        res.status(200).send({auth: true, token: token, id: user._id, name: user.profile.name, email:user.profile.email, password:user.profile.password});
-        // Imma Coment this real quick
+        res.status(200).send({auth: true, token: token, name: user.profile.username, email:user.profile.email});
         res.redirect('jobs/main-page-jobs')
     })
 }
