@@ -60,7 +60,7 @@ function logInUser(req, res){
         console.log({auth: true, token: token, id: user._id, name: user.profile.name, email:user.profile.email, password:user.profile.password})
         res.status(200).send({auth: true, token: token, id: user._id, name: user.profile.name, email:user.profile.email, password:user.profile.password});
         // Imma Coment this real quick
-        //res.redirect('jobs/main-page-jobs')
+        res.redirect('jobs/main-page-jobs')
     })
 }
 
