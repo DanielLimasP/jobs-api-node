@@ -98,7 +98,6 @@ function getOneJob(req, res){
 }
 
 async function createJob(req, res, next){
-    console.log(req.body)
     const {name, startedDate, dueDate, description, _id, amountPayment, description_img, category, address, maxWorkers} = req.body
     var date = new Date();
     const publishDate = date.getFullYear() + "-" + (date.getMonth() + 1) + "-" + date.getDate()
@@ -109,7 +108,7 @@ async function createJob(req, res, next){
     const employerData = {"_id":_id,"rate":rate}
     const done = false
     var imgUrl
-    if (description_img.trim() != ''){
+    if (description_img != null){
         console.log(_id)
         const path = description_img
         const uniqueFilename = Random.id()
