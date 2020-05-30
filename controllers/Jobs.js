@@ -59,8 +59,10 @@ async function getAllJobs(req, res){
 function getJobsByPage(req, res){
     const perPage = parseInt(req.body.perPage)
     const page = parseInt(req.body.page)
-    let jobConcepts = null;
+    const id = (req.body.id).toString()
+    console.log(id)
 
+    let jobConcepts = null;
     let searchData = req.query.search
     let query = {}
 
@@ -68,10 +70,13 @@ function getJobsByPage(req, res){
         query.$or = [
             {category: {$regex: new RegExp(searchData), $options: 'i'}},
             {address: {$regex: new RegExp(searchData), $options: 'i'}},
+            {employer: {_id: id}}
         ]
     }
 
-    JobsSub.find(query).skip((page-1)* perPage).limit(perPage).sort({
+    JobsSub.find({$or: [{employer: {_id: id, rate: 0}}, {employer: {_id: id, rate: 1}},
+        {employer: {_id: id, rate: 2}}, {employer: {_id: id, rate: 3}}, {employer: {_id: id, rate: 4}},
+        {employer: {_id: id, rate: 5}}]}).skip((page-1)* perPage).limit(perPage).sort({
         publishDate: -1
     }).exec()
     .then((concepts)=>{
