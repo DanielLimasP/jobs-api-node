@@ -2,7 +2,7 @@
 Jobs API for the Jobs Project - React Native Team
 
 * Cinthia Paola Vazquez Lerma
-* César Saenz Salazar
+* César David Sáenz Salazar
 * Alejandra Ruelas Najera
 * Francisco Javier Ramírez Luna
 * Kevin Fernando Castañeda Dino
