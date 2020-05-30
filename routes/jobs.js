@@ -10,6 +10,8 @@ let JobsController = require('../controllers/Jobs');
 
 router.get('/getalljobs', JobsController.getAllJobs)
 
+router.get('/fetchalljobs', JobsController.fetchAllJobs)
+
 router.post('/getjob', JobsController.getOneJob)
 
 router.post('/addjob', JobsController.createJob)

@@ -6,7 +6,8 @@ module.exports = {
     toUpdateJob,
     deleteJob,
     getJobsByPage,
-    uploadJobPhoto
+    uploadJobPhoto,
+    fetchAllJobs
 }
 
 // CLOUDINARY_URL=cloudinary://874717479975763:I2uZYCzyRbb3Iyz3_lNOR2RN-7k@dz6pgtx3t
@@ -53,6 +54,15 @@ async function getAllJobs(req, res){
             })
         }
         res.status(200).render('jobs/alljobsview', {jobs: ctx.items})
+    })
+}
+
+function fetchAllJobs(req, res){
+    JobsSub.find({}, (err, concepts)=>{
+        if(err) return res.status(500).send({message: `Problem with the searching request ${err}`})
+        if(!concepts) return res.status(404).send({message: `the Jobs don't exists`})
+
+        res.status(200).send({message: 'Request successful',totalJobs: concepts.length, jobs: concepts})
     })
 }
 
