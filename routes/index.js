@@ -36,9 +36,9 @@ router.get('/globalusers', async (req, res)=>{
                     profileImg: concept.profile.profileImg,
                     degree: concept.profile.degree,
                     roles: concept.profile.roles,
-                    ine: concept.profile.requiredDocuments.INE,
-                    certificate: concept.profile.requiredDocuments.certificate,
-                    residenceProof: concept.profile.requiredDocuments.residenceProof
+                    //ine: concept.profile.requiredDocuments.INE,
+                    //certificate: concept.profile.requiredDocuments.certificate,
+                    //residenceProof: concept.profile.requiredDocuments.residenceProof
                 }
             })
         }
